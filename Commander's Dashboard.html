@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<!-- saved from url=(0240)file:///Users/verset/Library/Application%20Support/Claude/local-agent-mode-sessions/7df54a1d-a07d-4777-b34c-c784b24728b4/ea87b1ab-e37c-4268-a5a0-bab64c3d1e3d/local_a529d8b6-7683-4dda-ad37-a9f407c71a6d/outputs/commanders-dashboard/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Commander's Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link href="./Commander&#39;s Dashboard_files/css2" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#050510;--surface:#0c0c1d;--card:#111128;--card-hover:#161640;
+  --border:#1a1a3e;--border-light:#252560;
+  --fire:#ff3d5a;--fire-glow:#ff3d5a40;--fire-soft:#ff3d5a15;
+  --gold:#ffaa00;--gold-glow:#ffaa0040;--gold-soft:#ffaa0015;
+  --green:#00d68f;--green-glow:#00d68f40;--green-soft:#00d68f15;
+  --blue:#3d7aff;--blue-glow:#3d7aff40;--blue-soft:#3d7aff15;
+  --purple:#a855f7;--purple-glow:#a855f740;--purple-soft:#a855f715;
+  --teal:#14b8a6;--teal-glow:#14b8a640;--teal-soft:#14b8a615;
+  --text:#e8e8f0;--text-secondary:#8888aa;--text-dim:#555570;
+  --radius:16px;--radius-sm:10px;--radius-xs:8px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;min-height:100dvh;overflow-x:hidden}
+body::before{content:'';position:fixed;top:0;left:0;right:0;height:400px;background:radial-gradient(ellipse at 50% 0%,#ff3d5a08 0%,transparent 70%);pointer-events:none;z-index:0}
+
+.app{max-width:520px;margin:0 auto;padding:0 16px 100px;position:relative;z-index:1}
+
+/* ─── HEADER ─── */
+.header{text-align:center;padding:40px 0 24px}
+.header-badge{display:inline-flex;align-items:center;gap:6px;background:var(--fire-soft);border:1px solid #ff3d5a30;border-radius:100px;padding:6px 14px;font-size:0.7em;font-weight:600;color:var(--fire);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px}
+.header-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--fire);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.header h1{font-size:1.5em;font-weight:800;letter-spacing:-0.5px;background:linear-gradient(135deg,#fff 0%,#ff3d5a 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.header .date{color:var(--text-dim);font-size:0.78em;margin-top:6px;font-weight:400}
+
+/* ─── TABS ─── */
+.tab-bar{display:flex;gap:6px;padding:8px 0 20px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;scroll-snap-type:x mandatory}
+.tab-bar::-webkit-scrollbar{display:none}
+.tab{scroll-snap-align:start;flex-shrink:0;padding:8px 16px;background:var(--surface);border:1px solid var(--border);border-radius:100px;cursor:pointer;font-size:0.76em;font-weight:500;color:var(--text-dim);transition:all 0.3s cubic-bezier(0.4,0,0.2,1);white-space:nowrap}
+.tab:hover{color:var(--text-secondary);border-color:var(--border-light)}
+.tab.active{background:linear-gradient(135deg,var(--fire),#ff6b3d);color:#fff;border-color:transparent;box-shadow:0 4px 20px var(--fire-glow)}
+
+/* ─── PANELS ─── */
+.panel{display:none;animation:fadeIn 0.35s ease}
+.panel.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ─── CARDS ─── */
+.card{background:var(--card);border-radius:var(--radius);padding:24px;margin-bottom:16px;border:1px solid var(--border);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,#ffffff10,transparent)}
+.card-header{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.card-icon{width:36px;height:36px;border-radius:var(--radius-xs);display:flex;align-items:center;justify-content:center;font-size:1.1em;flex-shrink:0}
+.card-icon.fire{background:var(--fire-soft);color:var(--fire)}
+.card-icon.gold{background:var(--gold-soft);color:var(--gold)}
+.card-icon.green{background:var(--green-soft);color:var(--green)}
+.card-icon.blue{background:var(--blue-soft);color:var(--blue)}
+.card-icon.purple{background:var(--purple-soft);color:var(--purple)}
+.card-icon.teal{background:var(--teal-soft);color:var(--teal)}
+.card-title{font-size:0.85em;font-weight:700;letter-spacing:0.5px;text-transform:uppercase}
+.card-subtitle{font-size:0.72em;color:var(--text-dim);margin-top:2px;font-weight:400}
+
+/* ─── OATH ─── */
+.oath-block{position:relative;padding:20px;border-radius:var(--radius-sm);background:linear-gradient(135deg,#0d0d2508,#ff3d5a05);border:1px solid var(--border)}
+.oath-block p{font-size:0.92em;line-height:1.85;color:#b8b8d0;margin-bottom:16px}
+.oath-block p:last-child{margin-bottom:0}
+.oath-block strong{color:var(--fire);font-weight:600}
+.oath-verse{display:block;font-size:0.75em;color:var(--gold);font-style:italic;margin-top:4px;font-weight:400}
+
+/* ─── BUTTONS ─── */
+.btn{width:100%;padding:16px;border:none;border-radius:var(--radius-sm);font-family:inherit;font-size:0.88em;font-weight:700;cursor:pointer;letter-spacing:0.8px;text-transform:uppercase;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);position:relative;overflow:hidden}
+.btn-fire{background:linear-gradient(135deg,var(--fire),#ff6b3d);color:#fff;box-shadow:0 4px 24px var(--fire-glow)}
+.btn-fire:hover{transform:translateY(-1px);box-shadow:0 8px 32px var(--fire-glow)}
+.btn-fire:active{transform:translateY(0);box-shadow:0 2px 12px var(--fire-glow)}
+.btn-green{background:linear-gradient(135deg,var(--green),#00e6a0);color:#000;box-shadow:0 4px 24px var(--green-glow)}
+.btn-green:hover{transform:translateY(-1px)}
+.btn-outline{background:transparent;border:1px solid var(--border-light);color:var(--text-secondary)}
+.btn-outline:hover{border-color:var(--fire);color:var(--fire)}
+.btn-sm{width:auto;padding:10px 20px;font-size:0.78em}
+
+/* ─── SCORECARD ─── */
+.metric-item{padding:14px 0;border-bottom:1px solid var(--border)}
+.metric-item:last-child{border:none}
+.metric-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.metric-name{font-size:0.85em;font-weight:600}
+.metric-val{font-family:'JetBrains Mono',monospace;font-size:0.85em;font-weight:700;color:var(--text-dim);min-width:24px;text-align:right}
+.metric-desc{font-size:0.7em;color:var(--text-dim);margin-bottom:10px}
+.score-dots{display:flex;gap:6px}
+.score-dot{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--border);background:transparent;color:var(--text-dim);cursor:pointer;font-size:0.72em;font-weight:600;font-family:'JetBrains Mono',monospace;transition:all 0.2s;display:flex;align-items:center;justify-content:center}
+.score-dot:hover{border-color:var(--fire);color:var(--fire);background:var(--fire-soft)}
+.score-dot.sel{color:#fff;border-color:transparent}
+.score-dot.sel.c-fire{background:var(--fire);box-shadow:0 0 12px var(--fire-glow)}
+.score-dot.sel.c-gold{background:var(--gold);box-shadow:0 0 12px var(--gold-glow);color:#000}
+.score-dot.sel.c-green{background:var(--green);box-shadow:0 0 12px var(--green-glow);color:#000}
+.score-dot.sel.c-blue{background:var(--blue);box-shadow:0 0 12px var(--blue-glow)}
+.score-dot.sel.c-purple{background:var(--purple);box-shadow:0 0 12px var(--purple-glow)}
+.score-dot.sel.c-teal{background:var(--teal);box-shadow:0 0 12px var(--teal-glow);color:#000}
+@media(max-width:400px){.score-dot{width:24px;height:24px;font-size:0.65em}}
+
+/* ─── TOTAL BAR ─── */
+.total-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px;text-align:center}
+.total-label{font-size:0.7em;color:var(--text-dim);letter-spacing:1.5px;text-transform:uppercase;font-weight:600}
+.total-number{font-family:'JetBrains Mono',monospace;font-size:3em;font-weight:800;margin:8px 0;background:linear-gradient(135deg,var(--fire),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.progress-bar{width:100%;height:6px;background:var(--surface);border-radius:100px;overflow:hidden;margin-top:12px;border:1px solid var(--border)}
+.progress-fill{height:100%;border-radius:100px;transition:width 0.6s cubic-bezier(0.4,0,0.2,1);background:linear-gradient(90deg,var(--fire),var(--gold))}
+.progress-fill.green{background:linear-gradient(90deg,var(--green),#00e6a0)}
+.progress-fill.blue{background:linear-gradient(90deg,var(--blue),#6b9fff)}
+.progress-fill.gold{background:linear-gradient(90deg,var(--gold),#ffcc00)}
+
+/* ─── CHECKLIST ─── */
+.check-item{display:flex;align-items:center;gap:14px;padding:12px 14px;border-radius:var(--radius-xs);cursor:pointer;user-select:none;transition:background 0.2s;margin-bottom:4px}
+.check-item:hover{background:#ffffff05}
+.check-item:active{background:#ffffff08}
+.check-mark{width:22px;height:22px;border-radius:6px;border:2px solid var(--border-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.25s cubic-bezier(0.4,0,0.2,1);font-size:12px;color:transparent}
+.check-item.done .check-mark{background:var(--green);border-color:var(--green);color:#fff;box-shadow:0 0 12px var(--green-glow)}
+.check-label{flex:1;font-size:0.85em;font-weight:500;transition:all 0.2s}
+.check-item.done .check-label{color:var(--text-dim);text-decoration:line-through;text-decoration-color:var(--text-dim)}
+.check-time{font-family:'JetBrains Mono',monospace;font-size:0.68em;color:var(--text-dim);font-weight:500;white-space:nowrap}
+.check-counter{text-align:center;margin-top:8px}
+.check-counter .num{font-family:'JetBrains Mono',monospace;font-size:2em;font-weight:800}
+.check-counter .of{font-size:0.75em;color:var(--text-dim)}
+
+/* ─── STREAKS ─── */
+.streak-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.streak-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:18px 12px;text-align:center;position:relative;overflow:hidden;transition:border-color 0.3s}
+.streak-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px}
+.streak-card.s-fire::after{background:linear-gradient(90deg,var(--fire),#ff6b3d)}
+.streak-card.s-green::after{background:linear-gradient(90deg,var(--green),#00e6a0)}
+.streak-card.s-purple::after{background:linear-gradient(90deg,var(--purple),#c084fc)}
+.streak-card.s-gold::after{background:linear-gradient(90deg,var(--gold),#ffcc00)}
+.streak-card.s-blue::after{background:linear-gradient(90deg,var(--blue),#6b9fff)}
+.streak-card.s-teal::after{background:linear-gradient(90deg,var(--teal),#2dd4bf)}
+.streak-num{font-family:'JetBrains Mono',monospace;font-size:2.2em;font-weight:800;line-height:1}
+.s-fire .streak-num{color:var(--fire)}
+.s-green .streak-num{color:var(--green)}
+.s-purple .streak-num{color:var(--purple)}
+.s-gold .streak-num{color:var(--gold)}
+.s-blue .streak-num{color:var(--blue)}
+.s-teal .streak-num{color:var(--teal)}
+.streak-label{font-size:0.68em;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-top:6px}
+.streak-controls{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--border)}
+.streak-controls:last-child{border:none}
+.streak-controls label{flex:1;font-size:0.85em;font-weight:500}
+.ctrl-btn{width:36px;height:36px;border-radius:var(--radius-xs);border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;font-size:1.1em;font-weight:600;transition:all 0.2s;display:flex;align-items:center;justify-content:center}
+.ctrl-btn:hover{border-color:var(--fire);color:var(--fire);background:var(--fire-soft)}
+.ctrl-btn.reset{font-size:0.75em;color:var(--text-dim)}
+.ctrl-btn.reset:hover{color:var(--fire)}
+.ctrl-val{font-family:'JetBrains Mono',monospace;font-size:1.3em;font-weight:700;min-width:40px;text-align:center}
+
+/* ─── JOURNAL ─── */
+.journal-prompt{font-size:0.78em;font-weight:600;margin-bottom:8px;margin-top:16px;display:flex;align-items:center;gap:6px}
+.journal-prompt:first-child{margin-top:0}
+.journal-input{width:100%;min-height:72px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-xs);padding:14px;color:var(--text);font-family:'Inter',sans-serif;font-size:0.88em;resize:vertical;transition:border-color 0.3s;line-height:1.6}
+.journal-input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft)}
+
+/* ─── MISSION ─── */
+.mission-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.mission-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;text-align:center}
+.mission-val{font-family:'JetBrains Mono',monospace;font-size:1.8em;font-weight:800;line-height:1.2}
+.mission-label{font-size:0.65em;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-top:4px}
+.mission-input-row{display:flex;gap:10px;margin-top:12px}
+.mission-input{flex:1;padding:12px 14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-xs);color:var(--text);font-family:'Inter',sans-serif;font-size:0.88em;transition:border-color 0.3s}
+.mission-input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft)}
+
+/* ─── HISTORY ─── */
+.history-item{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-xs);margin-bottom:6px;transition:border-color 0.2s}
+.history-item:hover{border-color:var(--border-light)}
+.history-date{font-size:0.82em;color:var(--text-secondary);font-weight:500}
+.history-score{font-family:'JetBrains Mono',monospace;font-size:0.88em;font-weight:700}
+
+/* ─── TOAST ─── */
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 24px;font-size:0.85em;font-weight:600;color:var(--text);box-shadow:0 12px 40px rgba(0,0,0,0.5);z-index:999;transition:transform 0.4s cubic-bezier(0.4,0,0.2,1);display:flex;align-items:center;gap:8px}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.toast .t-icon{font-size:1.1em}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:400px){
+  .app{padding:0 12px 100px}
+  .header h1{font-size:1.3em}
+  .score-dots{gap:4px}
+  .streak-grid{grid-template-columns:repeat(auto-fit,minmax(100px,1fr))}
+  .mission-val{font-size:1.4em}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<div class="header">
+  <div class="header-badge"><span class="dot"></span> ACTIVE MISSION</div>
+  <h1>Commander's Dashboard</h1>
+  <p class="date" id="dateDisplay">Wednesday, February 25, 2026</p>
+</div>
+
+<div class="tab-bar" id="tabBar">
+  <div class="tab active" data-tab="oath">Oath</div>
+  <div class="tab" data-tab="score">Scorecard</div>
+  <div class="tab" data-tab="checklist">Checklist</div>
+  <div class="tab" data-tab="streaks">Streaks</div>
+  <div class="tab" data-tab="journal">Journal</div>
+  <div class="tab" data-tab="mission">Mission</div>
+  <div class="tab" data-tab="history">History</div>
+</div>
+
+<!-- OATH -->
+<div id="oath" class="panel active">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon fire">⚔</div>
+      <div><div class="card-title">The Daily Oath</div><div class="card-subtitle">Read aloud every morning. Before you touch your phone.</div></div>
+    </div>
+    <div class="oath-block">
+      <p><strong>I am the commander of this mission.</strong> My team follows my energy, not my words. Today I will lead by example.</p>
+      <p>I will not leak my energy into things that do not serve the mission or my marriage. My eyes, my thoughts, and my attention belong to <strong>my wife and my work.</strong> Nothing else gets access today.</p>
+      <p>I will <strong>sit in God's Word for one full hour today.</strong> I will read, meditate, and let the Scripture shape my mind before the world tries to. My spirit leads. My flesh follows.</p>
+      <p>I will train my body because it is the engine that powers everything else. I will eat with purpose. I will sleep with discipline. I will treat my health like the <strong>₦700M asset</strong> it is.</p>
+      <p>I will make <strong>my wife feel chosen today.</strong> Not with grand gestures but with presence, attention, and a genuine desire to know how she is doing. She is my first priority. The mission is my second.</p>
+      <p>I will make at least <strong>3 sales conversations happen.</strong> I will review my team's output. I will move money closer to the account. This is a revenue day. Every day is a revenue day.</p>
+      <p>I will go to bed tonight knowing that I gave today everything I had. <strong>And tomorrow I will do it again.</strong></p>
+    </div>
+  </div>
+  <button class="btn btn-fire" onclick="markOathRead()" id="oathBtn">I HAVE READ MY OATH</button>
+</div>
+
+<!-- SCORECARD -->
+<div id="score" class="panel">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon gold">★</div>
+      <div><div class="card-title">Nightly Scorecard</div><div class="card-subtitle">Rate yourself 1–10 before bed. Honesty beats ego.</div></div>
+    </div>
+    <div id="metricsContainer"><div class="metric-item"><div class="metric-top"><span class="metric-name">Energy Level</span><span class="metric-val" style="color:var(--purple)">-</span></div><div class="metric-desc">How energized? (1=dead, 10=unstoppable)</div><div class="score-dots"><div class="score-dot " onclick="setScore(&#39;energy&#39;,1)">1</div><div class="score-dot " onclick="setScore(&#39;energy&#39;,2)">2</div><div class="score-dot " onclick="setScore(&#39;energy&#39;,3)">3</div><div class="score-dot " onclick="setScore(&#39;energy&#39;,4)">4</div><div class="score-dot " onclick="setScore(&#39;energy&#39;,5)">5</div><div class="score-dot " onclick="setScore(&#39;energy&#39;,6)">6</div><div class="score-dot " onclick="setScore(&#39;energy&#39;,7)">7</div><div class="score-dot " onclick="setScore(&#39;energy&#39;,8)">8</div><div class="score-dot " onclick="setScore(&#39;energy&#39;,9)">9</div><div class="score-dot " onclick="setScore(&#39;energy&#39;,10)">10</div></div></div><div class="metric-item"><div class="metric-top"><span class="metric-name">Focus</span><span class="metric-val" style="color:var(--blue)">-</span></div><div class="metric-desc">How focused during peak hours?</div><div class="score-dots"><div class="score-dot " onclick="setScore(&#39;focus&#39;,1)">1</div><div class="score-dot " onclick="setScore(&#39;focus&#39;,2)">2</div><div class="score-dot " onclick="setScore(&#39;focus&#39;,3)">3</div><div class="score-dot " onclick="setScore(&#39;focus&#39;,4)">4</div><div class="score-dot " onclick="setScore(&#39;focus&#39;,5)">5</div><div class="score-dot " onclick="setScore(&#39;focus&#39;,6)">6</div><div class="score-dot " onclick="setScore(&#39;focus&#39;,7)">7</div><div class="score-dot " onclick="setScore(&#39;focus&#39;,8)">8</div><div class="score-dot " onclick="setScore(&#39;focus&#39;,9)">9</div><div class="score-dot " onclick="setScore(&#39;focus&#39;,10)">10</div></div></div><div class="metric-item"><div class="metric-top"><span class="metric-name">Discipline (PMO)</span><span class="metric-val" style="color:var(--fire)">-</span></div><div class="metric-desc">Full discipline maintained? (10=clean)</div><div class="score-dots"><div class="score-dot " onclick="setScore(&#39;discipline&#39;,1)">1</div><div class="score-dot " onclick="setScore(&#39;discipline&#39;,2)">2</div><div class="score-dot " onclick="setScore(&#39;discipline&#39;,3)">3</div><div class="score-dot " onclick="setScore(&#39;discipline&#39;,4)">4</div><div class="score-dot " onclick="setScore(&#39;discipline&#39;,5)">5</div><div class="score-dot " onclick="setScore(&#39;discipline&#39;,6)">6</div><div class="score-dot " onclick="setScore(&#39;discipline&#39;,7)">7</div><div class="score-dot " onclick="setScore(&#39;discipline&#39;,8)">8</div><div class="score-dot " onclick="setScore(&#39;discipline&#39;,9)">9</div><div class="score-dot " onclick="setScore(&#39;discipline&#39;,10)">10</div></div></div><div class="metric-item"><div class="metric-top"><span class="metric-name">Sales Activity</span><span class="metric-val" style="color:var(--gold)">-</span></div><div class="metric-desc">Revenue conversations? (10=3+ calls closed)</div><div class="score-dots"><div class="score-dot " onclick="setScore(&#39;sales&#39;,1)">1</div><div class="score-dot " onclick="setScore(&#39;sales&#39;,2)">2</div><div class="score-dot " onclick="setScore(&#39;sales&#39;,3)">3</div><div class="score-dot " onclick="setScore(&#39;sales&#39;,4)">4</div><div class="score-dot " onclick="setScore(&#39;sales&#39;,5)">5</div><div class="score-dot " onclick="setScore(&#39;sales&#39;,6)">6</div><div class="score-dot " onclick="setScore(&#39;sales&#39;,7)">7</div><div class="score-dot " onclick="setScore(&#39;sales&#39;,8)">8</div><div class="score-dot " onclick="setScore(&#39;sales&#39;,9)">9</div><div class="score-dot " onclick="setScore(&#39;sales&#39;,10)">10</div></div></div><div class="metric-item"><div class="metric-top"><span class="metric-name">Team Leadership</span><span class="metric-val" style="color:var(--teal)">-</span></div><div class="metric-desc">Led and checked in with team?</div><div class="score-dots"><div class="score-dot " onclick="setScore(&#39;team&#39;,1)">1</div><div class="score-dot " onclick="setScore(&#39;team&#39;,2)">2</div><div class="score-dot " onclick="setScore(&#39;team&#39;,3)">3</div><div class="score-dot " onclick="setScore(&#39;team&#39;,4)">4</div><div class="score-dot " onclick="setScore(&#39;team&#39;,5)">5</div><div class="score-dot " onclick="setScore(&#39;team&#39;,6)">6</div><div class="score-dot " onclick="setScore(&#39;team&#39;,7)">7</div><div class="score-dot " onclick="setScore(&#39;team&#39;,8)">8</div><div class="score-dot " onclick="setScore(&#39;team&#39;,9)">9</div><div class="score-dot " onclick="setScore(&#39;team&#39;,10)">10</div></div></div><div class="metric-item"><div class="metric-top"><span class="metric-name">Marriage</span><span class="metric-val" style="color:var(--green)">-</span></div><div class="metric-desc">Did your wife feel chosen today?</div><div class="score-dots"><div class="score-dot " onclick="setScore(&#39;marriage&#39;,1)">1</div><div class="score-dot " onclick="setScore(&#39;marriage&#39;,2)">2</div><div class="score-dot " onclick="setScore(&#39;marriage&#39;,3)">3</div><div class="score-dot " onclick="setScore(&#39;marriage&#39;,4)">4</div><div class="score-dot " onclick="setScore(&#39;marriage&#39;,5)">5</div><div class="score-dot " onclick="setScore(&#39;marriage&#39;,6)">6</div><div class="score-dot " onclick="setScore(&#39;marriage&#39;,7)">7</div><div class="score-dot " onclick="setScore(&#39;marriage&#39;,8)">8</div><div class="score-dot " onclick="setScore(&#39;marriage&#39;,9)">9</div><div class="score-dot " onclick="setScore(&#39;marriage&#39;,10)">10</div></div></div><div class="metric-item"><div class="metric-top"><span class="metric-name">Exercise</span><span class="metric-val" style="color:var(--purple)">-</span></div><div class="metric-desc">Did you train? (10=full workout)</div><div class="score-dots"><div class="score-dot " onclick="setScore(&#39;exercise&#39;,1)">1</div><div class="score-dot " onclick="setScore(&#39;exercise&#39;,2)">2</div><div class="score-dot " onclick="setScore(&#39;exercise&#39;,3)">3</div><div class="score-dot " onclick="setScore(&#39;exercise&#39;,4)">4</div><div class="score-dot " onclick="setScore(&#39;exercise&#39;,5)">5</div><div class="score-dot " onclick="setScore(&#39;exercise&#39;,6)">6</div><div class="score-dot " onclick="setScore(&#39;exercise&#39;,7)">7</div><div class="score-dot " onclick="setScore(&#39;exercise&#39;,8)">8</div><div class="score-dot " onclick="setScore(&#39;exercise&#39;,9)">9</div><div class="score-dot " onclick="setScore(&#39;exercise&#39;,10)">10</div></div></div><div class="metric-item"><div class="metric-top"><span class="metric-name">Nutrition</span><span class="metric-val" style="color:var(--gold)">-</span></div><div class="metric-desc">Ate according to protocol?</div><div class="score-dots"><div class="score-dot " onclick="setScore(&#39;nutrition&#39;,1)">1</div><div class="score-dot " onclick="setScore(&#39;nutrition&#39;,2)">2</div><div class="score-dot " onclick="setScore(&#39;nutrition&#39;,3)">3</div><div class="score-dot " onclick="setScore(&#39;nutrition&#39;,4)">4</div><div class="score-dot " onclick="setScore(&#39;nutrition&#39;,5)">5</div><div class="score-dot " onclick="setScore(&#39;nutrition&#39;,6)">6</div><div class="score-dot " onclick="setScore(&#39;nutrition&#39;,7)">7</div><div class="score-dot " onclick="setScore(&#39;nutrition&#39;,8)">8</div><div class="score-dot " onclick="setScore(&#39;nutrition&#39;,9)">9</div><div class="score-dot " onclick="setScore(&#39;nutrition&#39;,10)">10</div></div></div><div class="metric-item"><div class="metric-top"><span class="metric-name">Sleep (prev night)</span><span class="metric-val" style="color:var(--blue)">-</span></div><div class="metric-desc">Quality hours? (10=7+hrs)</div><div class="score-dots"><div class="score-dot " onclick="setScore(&#39;sleep&#39;,1)">1</div><div class="score-dot " onclick="setScore(&#39;sleep&#39;,2)">2</div><div class="score-dot " onclick="setScore(&#39;sleep&#39;,3)">3</div><div class="score-dot " onclick="setScore(&#39;sleep&#39;,4)">4</div><div class="score-dot " onclick="setScore(&#39;sleep&#39;,5)">5</div><div class="score-dot " onclick="setScore(&#39;sleep&#39;,6)">6</div><div class="score-dot " onclick="setScore(&#39;sleep&#39;,7)">7</div><div class="score-dot " onclick="setScore(&#39;sleep&#39;,8)">8</div><div class="score-dot " onclick="setScore(&#39;sleep&#39;,9)">9</div><div class="score-dot " onclick="setScore(&#39;sleep&#39;,10)">10</div></div></div><div class="metric-item"><div class="metric-top"><span class="metric-name">Spiritual</span><span class="metric-val" style="color:var(--gold)">-</span></div><div class="metric-desc">Devotion, prayer &amp; 1-hr Bible reading completed? (10=full block)</div><div class="score-dots"><div class="score-dot " onclick="setScore(&#39;spiritual&#39;,1)">1</div><div class="score-dot " onclick="setScore(&#39;spiritual&#39;,2)">2</div><div class="score-dot " onclick="setScore(&#39;spiritual&#39;,3)">3</div><div class="score-dot " onclick="setScore(&#39;spiritual&#39;,4)">4</div><div class="score-dot " onclick="setScore(&#39;spiritual&#39;,5)">5</div><div class="score-dot " onclick="setScore(&#39;spiritual&#39;,6)">6</div><div class="score-dot " onclick="setScore(&#39;spiritual&#39;,7)">7</div><div class="score-dot " onclick="setScore(&#39;spiritual&#39;,8)">8</div><div class="score-dot " onclick="setScore(&#39;spiritual&#39;,9)">9</div><div class="score-dot " onclick="setScore(&#39;spiritual&#39;,10)">10</div></div></div></div>
+  </div>
+  <div class="total-card">
+    <div class="total-label">Today's Total</div>
+    <div class="total-number" id="totalScore">0</div>
+    <div class="total-label" style="font-size:0.65em">OUT OF 100</div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  </div>
+  <button class="btn btn-fire" onclick="saveScores()">Save Scores</button>
+</div>
+
+<!-- CHECKLIST -->
+<div id="checklist" class="panel">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon green">✓</div>
+      <div><div class="card-title">Daily Non-Negotiables</div><div class="card-subtitle">Tap to check off. No excuses.</div></div>
+    </div>
+    <div id="checklistContainer"><div class="check-item " onclick="toggleCheck(0)"><div class="check-mark"></div><span class="check-label">Devotion, prayer &amp; 1-hr Bible reading</span><span class="check-time">5:00 AM</span></div><div class="check-item " onclick="toggleCheck(1)"><div class="check-mark"></div><span class="check-label">Read Daily Oath aloud</span><span class="check-time">6:00 AM</span></div><div class="check-item " onclick="toggleCheck(2)"><div class="check-mark"></div><span class="check-label">Workout completed</span><span class="check-time">6:20 AM</span></div><div class="check-item " onclick="toggleCheck(3)"><div class="check-mark"></div><span class="check-label">Wife — morning appreciation (eye contact)</span><span class="check-time">6:45 AM</span></div><div class="check-item " onclick="toggleCheck(4)"><div class="check-mark"></div><span class="check-label">Peak Block 1: Sales calls / closes</span><span class="check-time">7:30 AM</span></div><div class="check-item " onclick="toggleCheck(5)"><div class="check-mark"></div><span class="check-label">3 content pieces published (or reviewed)</span><span class="check-time">10:00 AM</span></div><div class="check-item " onclick="toggleCheck(6)"><div class="check-mark"></div><span class="check-label">Wife — midday check-in message</span><span class="check-time">12:00 PM</span></div><div class="check-item " onclick="toggleCheck(7)"><div class="check-mark"></div><span class="check-label">Team check-in / review output</span><span class="check-time">2:00 PM</span></div><div class="check-item " onclick="toggleCheck(8)"><div class="check-mark"></div><span class="check-label">50 outreach messages confirmed (assistant)</span><span class="check-time">4:00 PM</span></div><div class="check-item " onclick="toggleCheck(9)"><div class="check-mark"></div><span class="check-label">Pipeline &amp; revenue review (15 min)</span><span class="check-time">4:30 PM</span></div><div class="check-item " onclick="toggleCheck(10)"><div class="check-mark"></div><span class="check-label">Phone face-down for marriage block</span><span class="check-time">7:00 PM</span></div><div class="check-item " onclick="toggleCheck(11)"><div class="check-mark"></div><span class="check-label">Quality time with wife (2 hrs)</span><span class="check-time">7:00 PM</span></div><div class="check-item " onclick="toggleCheck(12)"><div class="check-mark"></div><span class="check-label">Phone moved to living room</span><span class="check-time">10:00 PM</span></div><div class="check-item " onclick="toggleCheck(13)"><div class="check-mark"></div><span class="check-label">Nightly scorecard completed</span><span class="check-time">10:15 PM</span></div></div>
+  </div>
+  <div class="total-card">
+    <div class="check-counter"><span class="num" id="checkDone" style="color:var(--green)">0</span><span class="of"> / <span id="checkTotal">14</span></span></div>
+    <div class="progress-bar"><div class="progress-fill green" id="checkFill" style="width:0%"></div></div>
+  </div>
+</div>
+
+<!-- STREAKS -->
+<div id="streaks" class="panel">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon purple">⚡</div>
+      <div><div class="card-title">Streak Counters</div><div class="card-subtitle">Every day the chain grows. Never break the chain.</div></div>
+    </div>
+    <div class="streak-grid" id="streakGrid"><div class="streak-card s-fire"><div class="streak-num">0</div><div class="streak-label">PMO-Free</div></div><div class="streak-card s-purple"><div class="streak-num">0</div><div class="streak-label">Exercise</div></div><div class="streak-card s-green"><div class="streak-num">0</div><div class="streak-label">Marriage Block</div></div><div class="streak-card s-gold"><div class="streak-num">0</div><div class="streak-label">Bible &amp; Devotion</div></div><div class="streak-card s-blue"><div class="streak-num">0</div><div class="streak-label">5:00 AM Wake</div></div></div>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon blue">▲</div>
+      <div><div class="card-title">Update Streaks</div></div>
+    </div>
+    <div id="streakControls"><div class="streak-controls"><label>PMO-Free</label><button class="ctrl-btn" onclick="adjStreak(&#39;pmo&#39;,-1)">-</button><span class="ctrl-val" style="color:var(--fire)">0</span><button class="ctrl-btn" onclick="adjStreak(&#39;pmo&#39;,1)">+</button><button class="ctrl-btn reset" onclick="rstStreak(&#39;pmo&#39;)">0</button></div><div class="streak-controls"><label>Exercise</label><button class="ctrl-btn" onclick="adjStreak(&#39;exercise&#39;,-1)">-</button><span class="ctrl-val" style="color:var(--purple)">0</span><button class="ctrl-btn" onclick="adjStreak(&#39;exercise&#39;,1)">+</button><button class="ctrl-btn reset" onclick="rstStreak(&#39;exercise&#39;)">0</button></div><div class="streak-controls"><label>Marriage Block</label><button class="ctrl-btn" onclick="adjStreak(&#39;marriage&#39;,-1)">-</button><span class="ctrl-val" style="color:var(--green)">0</span><button class="ctrl-btn" onclick="adjStreak(&#39;marriage&#39;,1)">+</button><button class="ctrl-btn reset" onclick="rstStreak(&#39;marriage&#39;)">0</button></div><div class="streak-controls"><label>Bible &amp; Devotion</label><button class="ctrl-btn" onclick="adjStreak(&#39;devotion&#39;,-1)">-</button><span class="ctrl-val" style="color:var(--gold)">0</span><button class="ctrl-btn" onclick="adjStreak(&#39;devotion&#39;,1)">+</button><button class="ctrl-btn reset" onclick="rstStreak(&#39;devotion&#39;)">0</button></div><div class="streak-controls"><label>5:00 AM Wake</label><button class="ctrl-btn" onclick="adjStreak(&#39;wakeup&#39;,-1)">-</button><span class="ctrl-val" style="color:var(--blue)">0</span><button class="ctrl-btn" onclick="adjStreak(&#39;wakeup&#39;,1)">+</button><button class="ctrl-btn reset" onclick="rstStreak(&#39;wakeup&#39;)">0</button></div></div>
+  </div>
+</div>
+
+<!-- JOURNAL -->
+<div id="journal" class="panel">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon teal">✎</div>
+      <div><div class="card-title">Evening Journal</div><div class="card-subtitle">5 minutes. Write honestly. This is for you only.</div></div>
+    </div>
+    <div class="journal-prompt" style="color:var(--gold)">🏆 What was my biggest win today?</div>
+    <textarea class="journal-input" id="j_win" rows="3"></textarea>
+    <div class="journal-prompt" style="color:var(--fire)">💧 Where did I fall short?</div>
+    <textarea class="journal-input" id="j_fail" rows="3"></textarea>
+    <div class="journal-prompt" style="color:var(--green)">💚 How did I show up for my wife today?</div>
+    <textarea class="journal-input" id="j_wife" rows="2"></textarea>
+    <div class="journal-prompt" style="color:var(--blue)">💡 What will I do differently tomorrow?</div>
+    <textarea class="journal-input" id="j_tmrw" rows="2"></textarea>
+    <div class="journal-prompt" style="color:var(--purple)">🙏 Gratitude — 3 specific things:</div>
+    <textarea class="journal-input" id="j_grat" rows="3"></textarea>
+  </div>
+  <button class="btn btn-fire" onclick="saveJournal()">Save Journal Entry</button>
+</div>
+
+<!-- MISSION -->
+<div id="mission" class="panel">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon gold">📈</div>
+      <div><div class="card-title">₦700M Mission Status</div></div>
+    </div>
+    <div class="mission-grid">
+      <div class="mission-box"><div class="mission-val" style="color:var(--fire)" id="mCurrent">₦7M</div><div class="mission-label">Current</div></div>
+      <div class="mission-box"><div class="mission-val" style="color:var(--green)" id="mTarget">₦700M</div><div class="mission-label">Target</div></div>
+      <div class="mission-box"><div class="mission-val" style="color:var(--blue)" id="mPercent">1.0%</div><div class="mission-label">Progress</div></div>
+      <div class="mission-box"><div class="mission-val" style="color:var(--gold)" id="mDays">0</div><div class="mission-label">Days In</div></div>
+    </div>
+    <div class="progress-bar" style="height:10px"><div class="progress-fill gold" id="missionFill" style="width:1%"></div></div>
+    <div style="margin-top:20px">
+      <div class="journal-prompt" style="color:var(--text-dim)">Update cumulative amount (₦ thousands):</div>
+      <div class="mission-input-row">
+        <input type="number" id="mInput" class="mission-input" placeholder="e.g. 50000 for ₦50M">
+        <button class="btn btn-fire btn-sm" onclick="updateMission()">Update</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HISTORY -->
+<div id="history" class="panel">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon blue">📅</div>
+      <div><div class="card-title">Score History</div><div class="card-subtitle">Last 30 days of accountability.</div></div>
+    </div>
+    <div id="historyContainer"><p style="color:var(--text-dim);font-size:0.85em">No entries yet. Start scoring to build your history.</p></div>
+  </div>
+</div>
+
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><span class="t-icon"></span><span class="t-msg"></span></div>
+
+<script>
+const METRICS = [
+  {id:'energy',name:'Energy Level',desc:'How energized? (1=dead, 10=unstoppable)',color:'purple'},
+  {id:'focus',name:'Focus',desc:'How focused during peak hours?',color:'blue'},
+  {id:'discipline',name:'Discipline (PMO)',desc:'Full discipline maintained? (10=clean)',color:'fire'},
+  {id:'sales',name:'Sales Activity',desc:'Revenue conversations? (10=3+ calls closed)',color:'gold'},
+  {id:'team',name:'Team Leadership',desc:'Led and checked in with team?',color:'teal'},
+  {id:'marriage',name:'Marriage',desc:'Did your wife feel chosen today?',color:'green'},
+  {id:'exercise',name:'Exercise',desc:'Did you train? (10=full workout)',color:'purple'},
+  {id:'nutrition',name:'Nutrition',desc:'Ate according to protocol?',color:'gold'},
+  {id:'sleep',name:'Sleep (prev night)',desc:'Quality hours? (10=7+hrs)',color:'blue'},
+  {id:'spiritual',name:'Spiritual',desc:'Devotion, prayer & 1-hr Bible reading completed? (10=full block)',color:'gold'},
+];
+
+const CHECKLIST = [
+  {text:'Devotion, prayer & 1-hr Bible reading',time:'5:00 AM'},
+  {text:'Read Daily Oath aloud',time:'6:00 AM'},
+  {text:'Workout completed',time:'6:20 AM'},
+  {text:'Wife — morning appreciation (eye contact)',time:'6:45 AM'},
+  {text:'Peak Block 1: Sales calls / closes',time:'7:30 AM'},
+  {text:'3 content pieces published (or reviewed)',time:'10:00 AM'},
+  {text:'Wife — midday check-in message',time:'12:00 PM'},
+  {text:'Team check-in / review output',time:'2:00 PM'},
+  {text:'50 outreach messages confirmed (assistant)',time:'4:00 PM'},
+  {text:'Pipeline & revenue review (15 min)',time:'4:30 PM'},
+  {text:'Phone face-down for marriage block',time:'7:00 PM'},
+  {text:'Quality time with wife (2 hrs)',time:'7:00 PM'},
+  {text:'Phone moved to living room',time:'10:00 PM'},
+  {text:'Nightly scorecard completed',time:'10:15 PM'},
+];
+
+const STREAKS = [
+  {id:'pmo',name:'PMO-Free',color:'fire'},
+  {id:'exercise',name:'Exercise',color:'purple'},
+  {id:'marriage',name:'Marriage Block',color:'green'},
+  {id:'devotion',name:'Bible & Devotion',color:'gold'},
+  {id:'wakeup',name:'5:00 AM Wake',color:'blue'},
+];
+
+let scores={}, checks={}, streaks={}, missionData={current:7000,startDate:'2026-03-01'};
+
+function getToday(){return new Date().toISOString().split('T')[0]}
+
+function load(){
+  try{
+    scores=JSON.parse(localStorage.getItem('cmd_scores')||'{}');
+    checks=JSON.parse(localStorage.getItem('cmd_checks')||'{}');
+    streaks=JSON.parse(localStorage.getItem('cmd_streaks')||'{}');
+    missionData=JSON.parse(localStorage.getItem('cmd_mission')||'{"current":7000,"startDate":"2026-03-01"}');
+  }catch(e){scores={};checks={};streaks={};missionData={current:7000,startDate:'2026-03-01'}}
+  STREAKS.forEach(s=>{if(!streaks[s.id])streaks[s.id]=0});
+}
+
+function save(){
+  localStorage.setItem('cmd_scores',JSON.stringify(scores));
+  localStorage.setItem('cmd_checks',JSON.stringify(checks));
+  localStorage.setItem('cmd_streaks',JSON.stringify(streaks));
+  localStorage.setItem('cmd_mission',JSON.stringify(missionData));
+}
+
+function toast(icon,msg){
+  const t=document.getElementById('toast');
+  t.querySelector('.t-icon').textContent=icon;
+  t.querySelector('.t-msg').textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+
+// TABS
+document.getElementById('tabBar').addEventListener('click',e=>{
+  const tab=e.target.closest('.tab');
+  if(!tab)return;
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(tab.dataset.tab).classList.add('active');
+  tab.classList.add('active');
+});
+
+// METRICS
+function renderMetrics(){
+  const c=document.getElementById('metricsContainer');
+  const today=getToday();
+  const ts=scores[today]||{};
+  c.innerHTML=METRICS.map(m=>{
+    const val=ts[m.id]||0;
+    const dots=Array.from({length:10},(_,i)=>{
+      const v=i+1;
+      const sel=val===v;
+      return `<div class="score-dot ${sel?'sel c-'+m.color:''}" onclick="setScore('${m.id}',${v})">${v}</div>`;
+    }).join('');
+    return `<div class="metric-item"><div class="metric-top"><span class="metric-name">${m.name}</span><span class="metric-val" style="color:var(--${m.color})">${val||'-'}</span></div><div class="metric-desc">${m.desc}</div><div class="score-dots">${dots}</div></div>`;
+  }).join('');
+  updateTotal();
+}
+
+function setScore(id,val){
+  const today=getToday();
+  if(!scores[today])scores[today]={};
+  scores[today][id]=val;
+  save();renderMetrics();
+}
+
+function updateTotal(){
+  const today=getToday();
+  const ts=scores[today]||{};
+  const total=METRICS.reduce((s,m)=>s+(ts[m.id]||0),0);
+  document.getElementById('totalScore').textContent=total;
+  const fill=document.getElementById('progressFill');
+  fill.style.width=total+'%';
+  if(total>=90){fill.className='progress-fill green'}
+  else if(total>=75){fill.className='progress-fill blue'}
+  else if(total>=60){fill.className='progress-fill gold'}
+  else{fill.className='progress-fill'}
+}
+
+function saveScores(){
+  save();
+  toast('&#9733;','Scores saved — '+document.getElementById('totalScore').textContent+'/100');
+  renderHistory();
+}
+
+// CHECKLIST
+function renderChecklist(){
+  const c=document.getElementById('checklistContainer');
+  const today=getToday();
+  const tc=checks[today]||{};
+  c.innerHTML=CHECKLIST.map((item,i)=>{
+    const done=tc[i]||false;
+    return `<div class="check-item ${done?'done':''}" onclick="toggleCheck(${i})"><div class="check-mark">${done?'&#10003;':''}</div><span class="check-label">${item.text}</span><span class="check-time">${item.time}</span></div>`;
+  }).join('');
+  const doneCount=Object.values(tc).filter(Boolean).length;
+  document.getElementById('checkDone').textContent=doneCount;
+  document.getElementById('checkTotal').textContent=CHECKLIST.length;
+  document.getElementById('checkFill').style.width=(doneCount/CHECKLIST.length*100)+'%';
+}
+
+function toggleCheck(i){
+  const today=getToday();
+  if(!checks[today])checks[today]={};
+  checks[today][i]=!checks[today][i];
+  save();renderChecklist();
+}
+
+// STREAKS
+function renderStreaks(){
+  const colorMap={fire:'s-fire',green:'s-green',purple:'s-purple',gold:'s-gold',blue:'s-blue',teal:'s-teal'};
+  document.getElementById('streakGrid').innerHTML=STREAKS.map(s=>
+    `<div class="streak-card ${colorMap[s.color]||''}"><div class="streak-num">${streaks[s.id]||0}</div><div class="streak-label">${s.name}</div></div>`
+  ).join('');
+  document.getElementById('streakControls').innerHTML=STREAKS.map(s=>
+    `<div class="streak-controls"><label>${s.name}</label><button class="ctrl-btn" onclick="adjStreak('${s.id}',-1)">-</button><span class="ctrl-val" style="color:var(--${s.color})">${streaks[s.id]||0}</span><button class="ctrl-btn" onclick="adjStreak('${s.id}',1)">+</button><button class="ctrl-btn reset" onclick="rstStreak('${s.id}')">0</button></div>`
+  ).join('');
+}
+
+function adjStreak(id,d){streaks[id]=Math.max(0,(streaks[id]||0)+d);save();renderStreaks()}
+function rstStreak(id){streaks[id]=0;save();renderStreaks()}
+
+// OATH
+function markOathRead(){
+  const btn=document.getElementById('oathBtn');
+  btn.textContent='OATH READ — NOW GO WIN THE DAY';
+  btn.className='btn btn-green';
+  toast('&#9876;','Go dominate, Commander.');
+}
+
+// JOURNAL
+function saveJournal(){
+  const today=getToday();
+  const entry={win:document.getElementById('j_win').value,fail:document.getElementById('j_fail').value,wife:document.getElementById('j_wife').value,tmrw:document.getElementById('j_tmrw').value,grat:document.getElementById('j_grat').value};
+  let journals=JSON.parse(localStorage.getItem('cmd_journals')||'{}');
+  journals[today]=entry;
+  localStorage.setItem('cmd_journals',JSON.stringify(journals));
+  toast('&#9998;','Journal saved for '+today);
+}
+
+// MISSION
+function updateMission(){
+  const val=parseFloat(document.getElementById('mInput').value);
+  if(isNaN(val))return;
+  missionData.current=val;
+  save();renderMission();
+  toast('&#128200;','Mission updated to &#8358;'+(val/1000).toFixed(0)+'M');
+}
+
+function renderMission(){
+  const pct=(missionData.current/700000*100).toFixed(1);
+  const start=new Date('2026-03-01');
+  const now=new Date();
+  const days=Math.max(0,Math.floor((now-start)/86400000));
+  document.getElementById('mCurrent').textContent='\u20A6'+(missionData.current/1000).toFixed(0)+'M';
+  document.getElementById('mPercent').textContent=pct+'%';
+  document.getElementById('mDays').textContent=days;
+  document.getElementById('missionFill').style.width=Math.min(100,pct)+'%';
+}
+
+// HISTORY
+function renderHistory(){
+  const c=document.getElementById('historyContainer');
+  const days=Object.keys(scores).sort().reverse().slice(0,30);
+  if(!days.length){c.innerHTML='<p style="color:var(--text-dim);font-size:0.85em">No entries yet. Start scoring to build your history.</p>';return}
+  c.innerHTML=days.map(d=>{
+    const ds=scores[d]||{};
+    const total=METRICS.reduce((s,m)=>s+(ds[m.id]||0),0);
+    const clr=total>=90?'var(--green)':total>=75?'var(--blue)':total>=60?'var(--gold)':'var(--fire)';
+    return `<div class="history-item"><span class="history-date">${d}</span><span class="history-score" style="color:${clr}">${total}/100</span></div>`;
+  }).join('');
+}
+
+// INIT
+load();
+document.getElementById('dateDisplay').textContent=new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+renderMetrics();renderChecklist();renderStreaks();renderMission();renderHistory();
+
+// Load journal for today
+(function(){
+  const today=getToday();
+  const journals=JSON.parse(localStorage.getItem('cmd_journals')||'{}');
+  const entry=journals[today];
+  if(entry){
+    if(entry.win)document.getElementById('j_win').value=entry.win;
+    if(entry.fail)document.getElementById('j_fail').value=entry.fail;
+    if(entry.wife)document.getElementById('j_wife').value=entry.wife;
+    if(entry.tmrw)document.getElementById('j_tmrw').value=entry.tmrw;
+    if(entry.grat)document.getElementById('j_grat').value=entry.grat;
+  }
+})();
+</script>
+
+
+</body></html>
